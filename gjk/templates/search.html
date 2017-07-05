@@ -1,0 +1,63 @@
+{% load pc_tag %}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+{% if request.POST %}
+<title> 搜索_结果展现 </title>
+{% else %}
+<title> 条件搜索 </title>
+{% endif %}
+
+</head>
+
+<body>
+
+    <p>精确查找</p>
+
+
+   <div>  {{ error }} </div>
+<form action="/gjk/search/" method="post">
+ 	{% csrf_token %}
+
+	<div class="tag">
+	类别{{ form.tag }}
+	</div>
+
+    <div class="tag">
+	开始时间:{{ form.serach_start }}
+	</div>
+
+    	<div class="tag">
+	结束时间{{ form.serach_end }}
+	</div>
+
+	<div class="tag">
+	包含关键词{{ form.title_word }}
+	</div>
+
+	<input id="sub" type="submit" value="Submit" >
+</form>
+{% if request.POST %}
+
+ {% block result %}
+    <div>结果展示页 —— </div>
+    {% for x in result %}
+
+        <a href="/news/{{x.slug_url}}/{{x.id}}"> <div> {{ x.title }}  时间 {{ x | rq }} </div> </a>
+
+            </br>
+    {% endfor %}
+
+{% endblock %}
+
+{% endif %}
+
+
+</div>
+</body>
+
+</html>

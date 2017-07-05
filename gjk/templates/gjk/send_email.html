@@ -1,0 +1,123 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+
+<html lang="en-us" >
+<head>
+<title>添加文章 | 自定义文章管理</title>
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}" />
+
+
+<script type="text/javascript" src="{% static 'admin/jsi18n/' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/jquery.init.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/actions.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/urlify.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/prepopulate.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/vendor/xregexp/xregexp.js' %}"></script>
+<script type="text/javascript" src="{% static 'ueditor/ueditor.config.js' %}"></script>
+<script type="text/javascript" src="{% static 'ueditor/ueditor.all.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/calendar.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/admin/DateTimeShortcuts.js' %}"></script>
+
+</head>
+
+
+<body class=" app-news model-focusarticle change-form"
+  data-admin-utc-offset="28800">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name"><a href="/gjk/history/">文章发表 | 自定义后台</a></h1>
+
+        </div>
+        
+        
+        <div id="user-tools">
+            <!--  自定义认证 --->
+                Welcome,
+                <strong>actanble</strong>.
+                
+                 <a href="/">View site</a> 
+         
+        </div>
+       
+    </div>
+    <!-- END Header -->
+    
+<div class="breadcrumbs">
+
+
+</div>
+
+    <!-- Content -->
+    <div id="content" class="colM">
+        
+        <h1>发送邮件</h1>
+        <div id="content-main">
+
+<form enctype="multipart/form-data" action="/gjk/send_email/" method="post" > <!--id="focusarticle_form" novalidate--> 
+	<!-- <input type='hidden' name='csrfmiddlewaretoken' value='YQT3Uk3995RZq1kfkmhqfMt8bLJYb1cvcIUAHru6YbwXNOwMimYOEEBEQusotBO0' /> -->
+
+<div>
+  <fieldset class="module aligned ">
+    {% csrf_token %}
+
+        <div class="form-row field-title">
+                <div>
+                        <label class="required" for="id_title">标题:</label>          
+                            <input class="vTextField" id="id_title" maxlength="255" name="title" type="text" required />
+                </div>
+        </div>
+
+        <div class="form-row field-content">
+			<div>
+				<label for="id_content">内容:</label>
+
+				<script id="id_content" name="content"  style="display: inline-block;" type="text/plain"></script>
+				<script type="text/javascript">
+					var id_content = UE.getEditor('id_content',{'initialFrameWidth': 1200, 'serverUrl': '/ueditor/controller/?filePathFormat=uploads%2Ffiles%2F%25%28basename%29s_%25%28datetime%29s.%25%28extname%29s&imagePathFormat=uploads%2Fimages%2F%25%28basename%29s_%25%28datetime%29s.%25%28extname%29s', 'initialFrameHeight': 500});
+					 id_content.ready(function(){
+						 
+					 });
+				</script>               
+			 </div>
+        </div>
+
+</fieldset>
+
+
+<div class="submit-row">
+
+<input type="submit" value="提交" class="default" />
+<!--
+<input type="submit" value="Save and add another" name="_addanother" />
+<input type="submit" value="Save and continue editing" name="_continue" />
+-->
+
+</div>
+
+<script type="text/javascript" id="django-admin-form-add-constants" src="{% static 'admin/js/change_form.js' %}" data-model-name="focusarticle"></script>
+<script type="text/javascript" id="django-admin-prepopulated-fields-constants" src="{% static 'admin/js/prepopulate_init.js' %}" data-prepopulated-fields="[]"></script>
+
+</div>
+</form>
+	</div>
+        <br class="clear" />
+    </div>
+    <!-- END Content -->
+
+    <div id="footer"></div>
+</div>
+<!-- END Container -->
+
+</body>
+</html>

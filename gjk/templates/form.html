@@ -1,0 +1,49 @@
+{% load pc_tag %}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+{% if request.POST %}
+<title> 搜索_结果展现 </title>
+{% else %}
+<title> 条件搜索 </title>
+{% endif %}
+
+</head>
+
+<body>
+
+    <p>精确查找</p>
+
+
+   <div>  {{ error }} </div>
+<form action="/gaojianku/test_form/" method="post">
+ 	{% csrf_token %}
+
+    <div class="tag">
+	开始时间:{{ form.title }}
+	</div>
+
+    	<div class="tag">
+	check {{ form.published }}
+	</div>
+
+	<div class="tag">
+	test {{ form.published }}
+	</div>
+
+
+	<input id="sub" type="submit" value="Submit" >
+
+
+</form>
+
+
+
+</div>
+</body>
+
+</html>

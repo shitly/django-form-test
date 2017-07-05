@@ -1,0 +1,209 @@
+{% extends "gjk/base.html" %}
+
+{% load staticfiles %}
+
+{% load tags %}
+{% block title%}
+	{% if request.POST %}
+		搜索结果页
+	{% else %}
+		搜索页
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+
+{% if request.POST %}
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="ibox">
+                    
+                    <div class="ibox-title">
+                        <h5>搜索呈现页</h5>
+                        <div class="ibox-tools">
+                            <a href="" class="btn btn-primary btn-xs"></a>
+                        </div>
+                    </div>
+
+  
+                    <div class="ibox-content">
+                        <div class="row m-b-sm m-t-sm">
+                            <div class="col-md-1">
+                                <a href="/gjk/show/" <button type="button" id="loading-example-btn" class="btn btn-white btn-sm">清空搜索页</button></a>
+                            </div>
+                            <div class="col-md-11">
+                                <div class="input-group">
+                                    <input type="text" placeholder="无效搜索框" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-list">
+
+                            <table class="table table-hover">
+               
+                          <tbody>
+                                    
+									{% for x in result %}
+                                    <tr>
+										<td class="project-status">
+                                            {% if x.published %}
+                                            <span class="label label-primary">发布
+                                            {% else %}
+                                            <span class="label label-default">未发布
+                                            {% endif %}
+                                        </td>
+
+                                        <td class="project-status">
+                                            {% if x.toutiao %}
+                                            <span class="label label-primary">置顶
+                                            {% else %}
+                                            <span class="label label-default">普通
+                                            {% endif %}
+                                        </td>
+										
+										<td class="project-status">
+                                            <span>{{ x | cate }}</span>
+                                        </td>
+										
+                                        <td class="project-title">
+                                            <a href="/news/{{ x.slug_url }}/{{x.id}}/">{{ x.title }}</a>
+                                            <br/>
+                                            <small>创建于{{ x.pub_date | date }}</small>
+                                        </td>
+                          
+                                
+										<td class="project-status">
+                                            <span>来源: {{ x.sourcefrom }}</span>
+                                        </td>
+										
+										<td class="project-status">
+                                            <span>作者: {{ x.author }}</span>
+                                        </td>
+										
+                                        <td class="project-actions">
+                                            <a href="/news/{{ x.slug_url }}/{{x.id}}/" class="btn btn-white btn-sm"> 查看 </a>
+                                            <!-- 通过查看后进入对应页面会进行记录 -->
+                                        </td>
+                                    </tr>
+									{% endfor %}
+
+                                    </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <script>
+        $(document).ready(function(){
+
+            $('#loading-example-btn').click(function () {
+                btn = $(this);
+                simpleLoad(btn, true)
+
+                // Ajax example
+//                $.ajax().always(function () {
+//                    simpleLoad($(this), false)
+//                });
+
+                simpleLoad(btn, false)
+            });
+        });
+
+        function simpleLoad(btn, state) {
+            if (state) {
+                btn.children().addClass('fa-spin');
+                btn.contents().last().replaceWith(" Loading");
+            } else {
+                setTimeout(function () {
+                    btn.children().removeClass('fa-spin');
+                    btn.contents().last().replaceWith(" Refresh");
+                }, 2000);
+            }
+        }
+    </script>
+{% else %}
+ 
+ <p>类目条件查找</p>
+   <div>  {{ error }} </div>
+<form action="/gjk/show/" method="post">
+ 	{% csrf_token %}
+
+	<div class="tag">
+	类别{{ form.tag }}
+	</div>
+
+    <div class="tag">
+	开始时间:{{ form.serach_start }}
+	</div>
+
+    	<div class="tag">
+	结束时间{{ form.serach_end }}
+	</div>
+
+	<div class="tag">
+	包含关键词{{ form.title_word }}
+	</div>
+
+	<input id="sub" type="submit" value="搜索" >
+</form>
+
+
+
+    <script src="{% static 'js/plugins/layer/laydate/laydate.js' %}"></script>
+    <script>
+        //外部js调用
+        laydate({
+            elem: '#id_serach_start', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+            event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+        });
+
+
+        //外部js调用
+        laydate({
+            elem: '#id_serach_end', //目标元素。由于laydate.js封装了一个轻量级的选择器引擎，因此elem还允许你传入class、tag但必须按照这种方式 '#id .class'
+            event: 'focus' //响应事件。如果没有传入event，则按照默认的click
+        });
+
+        //日期范围限制
+        /*
+        var start = {
+            elem: 'id_serach_start',
+            format: 'YYYY/MM/DD hh:mm:ss',
+            min: laydate.now(), //设定最小日期为当前日期
+            max: '2099-06-16 23:59:59', //最大日期
+            istime: true,
+            istoday: false,
+            choose: function (datas) {
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+        var end = {
+            elem: 'id_serach_end',
+            format: 'YYYY/MM/DD hh:mm:ss',
+            min: laydate.now(),
+            max: '2099-06-16 23:59:59',
+            istime: true,
+            istoday: false,
+            choose: function (datas) {
+                start.max = datas; //结束日选好后，重置开始日的最大日期
+            }
+        };
+        laydate(start);
+        laydate(end);
+        */
+    </script>
+
+
+{% endif %}	
+	
+{% endblock %}

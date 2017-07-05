@@ -1,0 +1,218 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+
+<html lang="en-us" >
+<head>
+<title>添加文章 | 自定义文章管理</title>
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/base.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}" />
+
+
+<script type="text/javascript" src="{% static 'admin/jsi18n/' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/jquery.init.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/actions.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/urlify.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/prepopulate.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/vendor/xregexp/xregexp.js' %}"></script>
+<script type="text/javascript" src="{% static 'ueditor/ueditor.config.js' %}"></script>
+<script type="text/javascript" src="{% static 'ueditor/ueditor.all.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/calendar.js' %}"></script>
+<script type="text/javascript" src="{% static 'admin/js/admin/DateTimeShortcuts.js' %}"></script>
+
+</head>
+
+
+<body class=" app-news model-focusarticle change-form"
+  data-admin-utc-offset="28800">
+
+<!-- Container -->
+<div id="container">
+
+    
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        
+<h1 id="site-name"><a href="/gjk/history/">文章发表 | 自定义后台</a></h1>
+
+        </div>
+        
+        
+        <div id="user-tools">
+            <!--  自定义认证 --->
+                Welcome,
+                <strong>actanble</strong>.
+                
+                 <a href="/">View site</a> 
+         
+        </div>
+       
+    </div>
+    <!-- END Header -->
+    
+<div class="breadcrumbs">
+
+
+</div>
+
+    <!-- Content -->
+    <div id="content" class="colM">
+        
+        <h1>添加文章页面</h1>
+        <div id="content-main">
+
+<form enctype="multipart/form-data" action="/gjk/test/" method="post" > <!--id="focusarticle_form" novalidate--> 
+	<!-- <input type='hidden' name='csrfmiddlewaretoken' value='YQT3Uk3995RZq1kfkmhqfMt8bLJYb1cvcIUAHru6YbwXNOwMimYOEEBEQusotBO0' /> -->
+
+<div>
+  <fieldset class="module aligned ">
+    {% csrf_token %}
+        <!--
+        <div class="form-row field-toutiao">
+                <div class="checkbox-row">
+                        <input id="id_toutiao" name="toutiao" type="checkbox" /><label class="vCheckboxLabel" for="id_toutiao">设为头条</label>       
+                </div>
+        </div>
+
+        <div class="form-row field-pic">
+                <div>                
+                        <label class="required" for="id_pic">头条图片436*200:</label>      
+                            <input id="id_pic" name="pic" type="file" />
+                </div>
+        </div>
+    -->	<div class="form-row" field-tag>
+	类别<select id="id_tag" name="tag" required>
+                <option value="" selected="selected">---------</option>
+                <option value="1">安全热点</option>
+                <option value="2">管理政策</option>
+                <option value="3">聚焦南方</option>
+                <option value="4">安全法治</option>
+                <option value="5">人才培养</option>
+                <option value="6">前沿技术</option>
+                <option value="7">趣味科普</option>
+        </select>
+	</div>
+
+
+
+
+        <div class="form-row field-title">
+                <div>
+                        <label class="required" for="id_title">标题:</label>          
+                            <input class="vTextField" id="id_title" maxlength="255" name="title" type="text" required />
+                </div>
+        </div>
+    
+        <div class="form-row field-img">
+                <div>
+                        <label for="id_img">手机端缩略图:</label> 
+                             <script id="id_img" name="img"  style="display: inline-block;" type="text/plain" value=" ">
+							 </script>
+							<script type="text/javascript">
+								
+								var id_img = UE.getEditor('id_img',{'initialFrameWidth': 500, 'serverUrl': '/ueditor/controller/?filePathFormat=uploads%2Ffiles%2F%25%28basename%29s_%25%28datetime%29s.%25%28extname%29s&imagePathFormat=uploads%2Fimages%2F%25%28basename%29s_%25%28datetime%29s.%25%28extname%29s', 'initialFrameHeight': 200});
+								 id_img.ready(function(){
+									 
+								 });
+							</script>
+                </div>
+        </div>
+    
+        <div class="form-row field-abstract">
+			<div>
+				<label for="id_abstract">摘要:</label>
+				<textarea class="vLargeTextField" cols="40" id="id_abstract" name="abstract" rows="10" value=" "></textarea>
+			</div>		
+        </div>
+    
+	
+        <div class="form-row field-content">
+			<div>
+				<label for="id_content">内容:</label>
+
+				<script id="id_content" name="content"  style="display: inline-block;" type="text/plain"></script>
+				<script type="text/javascript">
+					var id_content = UE.getEditor('id_content',{'initialFrameWidth': 1200, 'serverUrl': '/ueditor/controller/?filePathFormat=uploads%2Ffiles%2F%25%28basename%29s_%25%28datetime%29s.%25%28extname%29s&imagePathFormat=uploads%2Fimages%2F%25%28basename%29s_%25%28datetime%29s.%25%28extname%29s', 'initialFrameHeight': 500});
+					 id_content.ready(function(){
+						 
+					 });
+				</script>               
+			 </div>
+        </div>
+    
+        <div class="form-row field-published">
+                <div class="checkbox-row"> 
+                        <input checked="checked" id="id_published" name="published" type="checkbox" /><label class="vCheckboxLabel" for="id_published">正式发布</label>   
+                </div>
+        </div>
+
+                <div class="form-row field-source_from">
+                <div>
+                        <label class="required" for="id_from"> 来源:</label>          
+                            <input class="vTextField" id="id_from" maxlength="255" name="source_from" type="text" value="清朗安全网" required />
+                </div>
+        </div>
+
+        <div class="form-row field-author">
+                <div>
+                        <label class="required" for="id_author">文章原作者:</label>          
+                            <input class="vTextField" id="id_author" maxlength="255" name="author" type="text" value="清朗安全" required />
+                </div>
+        </div>
+
+        <div>
+                    
+    <!--                
+                        <label class="required" for="id_pub_date_0">发表日期:</label>
+                        
+                            <p class="datetime">Date: <input class="vDateField" id="id_pub_date_0" 
+                            name="pub_date_0" size="10" type="text" 
+                            value="2017-06-21" required="">
+                            <span class="datetimeshortcuts">&nbsp;<a href="#">Today</a>&nbsp;|&nbsp;
+                            <a href="#" id="calendarlink0"><span class="date-icon" 
+                            title="Choose a Date"></span></a></span><br>Time: 
+                            <input class="vTimeField" id="id_pub_date_1" name="pub_date_1" size="8" 
+                            type="text" value="10:04:15" required=""><span class="datetimeshortcuts">&nbsp;
+                                    <a href="#">Now</a>&nbsp;|&nbsp;<a href="#" id="clocklink0">
+                                            <span class="clock-icon" title="Choose a Time"></span></a>
+                                            </span></p>
+                        
+                    
+                    
+                </div>
+-->
+
+
+
+</fieldset>
+
+
+<div class="submit-row">
+
+<input type="submit" value="提交" class="default" />
+<!--
+<input type="submit" value="Save and add another" name="_addanother" />
+<input type="submit" value="Save and continue editing" name="_continue" />
+-->
+
+</div>
+
+<script type="text/javascript" id="django-admin-form-add-constants" src="{% static 'admin/js/change_form.js' %}" data-model-name="focusarticle"></script>
+<script type="text/javascript" id="django-admin-prepopulated-fields-constants" src="{% static 'admin/js/prepopulate_init.js' %}" data-prepopulated-fields="[]"></script>
+
+</div>
+</form>
+	</div>
+        <br class="clear" />
+    </div>
+    <!-- END Content -->
+
+    <div id="footer"></div>
+</div>
+<!-- END Container -->
+
+</body>
+</html>

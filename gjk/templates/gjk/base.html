@@ -1,0 +1,52 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+<title>
+    {% block title %}
+        BASE
+    {% endblock %}
+</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+
+    <link rel="shortcut icon" href="{%static "favicon.ico"%}">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/animate.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style1.css' %}" rel="stylesheet">
+
+
+    <!-- 全局js -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/plugins/metisMenu/jquery.metisMenu.js' %}"></script>
+    <script src="{% static 'js/plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+    <script src="{% static 'js/plugins/layer/layer.min.js' %}"></script>
+
+    <!-- 自定义js -->
+    <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
+
+    <!-- Echats.js -->
+    <script src="{% static 'js/echarts.js' %}"></script>
+</head>
+
+<body>
+{% block content %}
+
+{% endblock %}
+</body>
+
+
+</html>
