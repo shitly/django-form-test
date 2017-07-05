@@ -7,7 +7,7 @@ Django_form 简易使用收录
 
 如果没有指定` form.FormField() `构造方法中的` forms.xInput(wiget) `那么就会默认`"id" = str(id_)+"name" `
 	
-###另外理解Form构造的原理；
+### 另外理解Form构造的原理；
 - 1, 自带一个检验。
 - 2, 可以在后台完成相关属性 `Input` 的设置。
 
